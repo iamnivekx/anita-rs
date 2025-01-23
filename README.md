@@ -37,7 +37,7 @@ cargo build --release
 For building a specific package, such as the API service, you can use:
 
 ```bash
-cargo build --release -p anita-api
+cargo build --release -p r-api
 ```
 
 2. After the build completes, you can find the binary in `target/release/`. Make it executable:

@@ -44,13 +44,13 @@ pub enum Subcommands {
     New {
         /// Number of threads to use
         #[arg(short, long, default_value_t = 4)]
-        count: u8,
+        threads: u8,
     },
     /// Vanity keypairs
     Vanity {
         /// Number of threads to use
         #[arg(short, long, default_value_t = 4)]
-        count: u8,
+        threads: u8,
     },
 }
 
@@ -70,8 +70,8 @@ impl Command {
                 let key = database.get_key_by_suffix(chain, suffix.as_str()).await?;
                 println!("key: {:?}", key);
             }
-            Subcommands::New { count, .. } => {
-                let context = keygen(count, suffix.as_str(), chain);
+            Subcommands::New { threads, .. } => {
+                let context = keygen(threads, suffix.as_str(), chain);
                 let keypair = context.keypair();
 
                 let key = NewKey::from_keypair(keypair, Some(suffix.clone()));
@@ -80,8 +80,8 @@ impl Command {
                 println!("key: {}", keypair.secret());
                 println!("address : {}", keypair.address());
             }
-            Subcommands::Vanity { count, .. } => loop {
-                let context = keygen(count, suffix.as_str(), chain);
+            Subcommands::Vanity { threads, .. } => loop {
+                let context = keygen(threads, suffix.as_str(), chain);
                 let keypair = context.keypair();
 
                 let mut key = NewKey::from_keypair(keypair, Some(suffix.clone()));
